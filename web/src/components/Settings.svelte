@@ -10,6 +10,7 @@
     let routeTableLimit;
     let interestingTableLimit;
     let recordHolderTableLimit;
+    let leaderboardTableLimit;
     let disablePlaneAlertDbTags;
     let settingsChanged = false;
     let version = { version: '...', commit: '...', date: '...' };
@@ -28,6 +29,9 @@
         }
         if ($settings.record_holder_table_limit) {
             recordHolderTableLimit = parseInt($settings.record_holder_table_limit.setting_value);
+        }
+        if ($settings.leaderboard_table_limit) {
+            leaderboardTableLimit = parseInt($settings.leaderboard_table_limit.setting_value);
         }
         if ($settings.disable_planealertdb_tags) {
             disablePlaneAlertDbTags = $settings.disable_planealertdb_tags.setting_value === 'true';
@@ -50,6 +54,7 @@
             route_table_limit: routeTableLimit.toString(),
             interesting_table_limit: interestingTableLimit.toString(),
             record_holder_table_limit: recordHolderTableLimit.toString(),
+            leaderboard_table_limit: leaderboardTableLimit.toString(),
             disable_planealertdb_tags: disablePlaneAlertDbTags.toString()
         };
 
@@ -180,6 +185,26 @@
                                     id="record-holder-table-limit"
                                     type="number"
                                     bind:value={recordHolderTableLimit}
+                                    on:input={handleSettingChange}
+                                    min="1"
+                                    max="100"
+                                    step="1"
+                                    required
+                                    class="input w-20"
+                                />
+                                <span class="ml-2 text-sm text-base-content/70">(1-100)</span>
+                            </div>
+
+                            <!-- Most Seen Aircraft Display Settings -->
+                            <div>
+                                <p class="text-xl font-extralight tracking-wider mb-4">Most Seen Aircraft</p>
+                                <p class="text-m text-base-content/70 mb-2">
+                                    Number of rows to display in the "Most Seen Aircraft" leaderboard
+                                </p>
+                                <input
+                                    id="leaderboard-table-limit"
+                                    type="number"
+                                    bind:value={leaderboardTableLimit}
                                     on:input={handleSettingChange}
                                     min="1"
                                     max="100"

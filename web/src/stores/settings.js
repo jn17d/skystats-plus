@@ -7,6 +7,7 @@ const { subscribe, set, update } = writable({});
 export const refreshRouteData = writable(0);
 export const refreshInterestingData = writable(0);
 export const refreshRecordHolderData = writable(0);
+export const refreshLeaderboardData = writable(0);
 
 export const settings = {
     subscribe,
@@ -55,6 +56,9 @@ export const settings = {
                 }
                 if (updates.record_holder_table_limit !== undefined) {
                     refreshRecordHolderData.update(n => n + 1);
+                }
+                if (updates.leaderboard_table_limit !== undefined) {
+                    refreshLeaderboardData.update(n => n + 1);
                 }
 
                 return true;

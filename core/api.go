@@ -83,6 +83,7 @@ func (s *APIServer) Start() {
 
 			stats.GET("/seen/recent", s.getRecentSeenMetrics)
 			stats.GET("/seen/totals", s.getTotalSeenMetrics)
+			stats.GET("/seen/leaderboard", s.getMostSeenAircraft)
 
 			stats.GET("/routes/metrics", s.getRouteMetrics)
 			stats.GET("/routes/airlines", s.getTopAirlines)
@@ -1515,4 +1516,38 @@ func (s *APIServer) getTotalSeenMetrics(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, stats)
+}
+
+// getMostSeenAircraft returns the aircraft seen the most times, most seen first.
+// A sighting is a single visit to the receiver, i.e. one row in aircraft_data
+// for a given hex.
+func (s *APIServer) getMostSeenAircraft(c *gin.Context) {
+
+	limit := s.getLimit("leaderboard_table_limit")
+
+	aircraft, err := s.cachedStats.GetMostSeenAircraft(limit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	leaderboard := []gin.H{}
+
+	for i, entry := range aircraft {
+		leaderboard = append(leaderboard, gin.H{
+			"rank":         i + 1,
+			"hex":          entry.Hex,
+			"registration": entry.Registration,
+			"type":         entry.Type,
+			"icao_type":    entry.IcaoType,
+			"operator":     entry.Operator,
+			"country":      entry.Country,
+			"times_seen":   entry.TimesSeen,
+			"days_seen":    entry.DaysSeen,
+			"first_seen":   entry.FirstSeen,
+			"last_seen":    entry.LastSeen,
+		})
+	}
+
+	c.JSON(http.StatusOK, leaderboard)
 }

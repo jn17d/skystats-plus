@@ -4,6 +4,7 @@
   import AboveTimeline from './components/AboveTimeline.svelte';
   import TabRouteStats from './components/TabRouteStats.svelte';
   import TabMotionStats from './components/TabMotionStats.svelte';
+  import TabLeaderboard from './components/TabLeaderboard.svelte';
   import TabInterestingStats from './components/TabInterestingStats.svelte';
   import TabActivity from './components/TabActivity.svelte';
   import Footer from './components/Footer.svelte';
@@ -16,7 +17,8 @@
     { name: 'activity', label: 'Activity', component: TabActivity },
     { name: 'route-stat', label: 'Route Information', component: TabRouteStats },
     { name: 'interesting-stat', label: 'Interesting Aircraft', component: TabInterestingStats },
-    { name: 'motion-stat', label: 'Record Holders', component: TabMotionStats }
+    { name: 'motion-stat', label: 'Record Holders', component: TabMotionStats },
+    { name: 'leaderboard', label: 'Most Seen Aircraft', component: TabLeaderboard }
   ];
 
   function setActiveTab(tabName) {

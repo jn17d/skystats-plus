@@ -29,6 +29,7 @@
 * Top Airports (Domestic, International)
 * Top Countries (Origin, Destination)
 * Top Routes
+* Most Seen Aircraft leaderboard (how many times each registration has been seen)
 * Interesting Aircraft (Miiltary, Government, Police, Civilian)
 * Fastest Aircraft
 * Slowest Aircraft

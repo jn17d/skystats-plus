@@ -182,3 +182,18 @@ type ChartResponse struct {
 	X      ChartXAxisMeta `json:"x"`
 	Meta   ChartMeta      `json:"meta"`
 }
+
+// MostSeenAircraft is a single entry of the "Most Seen Aircraft" leaderboard.
+// A sighting is one visit, i.e. one row in aircraft_data for a given hex.
+type MostSeenAircraft struct {
+	Hex          string     `json:"hex"`
+	Registration string     `json:"registration"`
+	Type         *string    `json:"type"`
+	IcaoType     *string    `json:"icao_type"`
+	Operator     *string    `json:"operator"`
+	Country      *string    `json:"country"`
+	TimesSeen    int        `json:"times_seen"`
+	DaysSeen     int        `json:"days_seen"`
+	FirstSeen    *time.Time `json:"first_seen"`
+	LastSeen     *time.Time `json:"last_seen"`
+}
